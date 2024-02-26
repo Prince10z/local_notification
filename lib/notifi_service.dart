@@ -19,8 +19,10 @@ class LocalNotifications {
 
 //initialization
   static Future init() async {
+    // AndroidInitializationSettings initializationSettingsAndroid =
+    //     AndroidInitializationSettings("@mipmap/ic_launcher");
     AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings("@mipmap/ic_launcher");
+        AndroidInitializationSettings("task_manager");
     final DarwinInitializationSettings InitializationSettingsDarwin =
         DarwinInitializationSettings(
       onDidReceiveLocalNotification: (id, title, body, payload) => null,
@@ -47,6 +49,7 @@ class LocalNotifications {
         AndroidNotificationDetails('your channel id', 'your channel name',
             channelDescription: 'your channel description',
             importance: Importance.max,
+            playSound: false,
             priority: Priority.high,
             ticker: 'ticker');
     const NotificationDetails notificationDetails =
@@ -83,7 +86,7 @@ class LocalNotifications {
     ScheduleController controller = Get.put(ScheduleController());
     tz.initializeTimeZones();
     int notificationId = Random().nextInt(100000);
-
+    final sound = "tuturu_1.mp3";
     await _flutterLocalNotificationsPlugin.zonedSchedule(
         notificationId,
         title,
@@ -96,6 +99,7 @@ class LocalNotifications {
                 channelDescription: 'your channel description',
                 importance: Importance.max,
                 priority: Priority.high,
+                sound: RawResourceAndroidNotificationSound("tuturu_1"),
                 ticker: 'ticker')),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
